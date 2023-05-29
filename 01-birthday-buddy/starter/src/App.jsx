@@ -1,4 +1,5 @@
 import Data from "./data";
+import { useState } from "react";
 
 const Person = ({ id, name, age, image }) => {
   return (
@@ -13,11 +14,17 @@ const Person = ({ id, name, age, image }) => {
 };
 
 const App = () => {
+  const [people, setPeople] = useState(Data);
+
+  function handleClick() {
+    setPeople([]);
+  }
+
   return (
     <main>
       <div className="container">
-        <h3>5 Birthdays Today</h3>
-        {Data.map((person) => {
+        <h3>{people.length} Birthdays Today</h3>
+        {people.map((person) => {
           return (
             <Person
               id={person.id}
@@ -27,13 +34,10 @@ const App = () => {
             />
           );
         })}
-        <Person
-          id={Data[0].id}
-          name={Data[0].name}
-          age={Data[0].age}
-          image={Data[0].image}
-        />
-        <button className="btn btn-block">Clear All</button>
+
+        <button className="btn btn-block" onClick={handleClick}>
+          Clear All
+        </button>
       </div>
     </main>
   );
